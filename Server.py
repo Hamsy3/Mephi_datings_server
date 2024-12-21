@@ -113,7 +113,7 @@ def get_db_connection():
             host="127.0.0.1",
             database="Mephi_datings",
             user="postgres",
-            password="Iorosah5i"
+            password="Your_password"
         )
         return conn
     except Exception as e:
