@@ -566,10 +566,9 @@ def post_users_status_route():
         #Проверка на то есть ли вообще такая связь, которую можно апдейтить
         cur.execute('SELECT * FROM "Match" WHERE user_liking_id = %s AND user_liked_id = %s;', (user_liking_id, user_liked_id))
         check_connectivity = cur.fetchone()
-        if status_sent == 2 or status_sent == 3:
-            cur.execute('SELECT * FROM "Match" WHERE user_liking_id = %s AND user_liked_id = %s;', (user_liked_id, user_liking_id))
-            check_connectivity_reverse = cur.fetchone()
-        if (status_sent == 1 or status_sent == 0) and check_connectivity is None:
+        cur.execute('SELECT * FROM "Match" WHERE user_liking_id = %s AND user_liked_id = %s;', (user_liked_id, user_liking_id))
+        check_connectivity_reverse = cur.fetchone()
+        if (status_sent == 1 or status_sent == 0) and check_connectivity is None and check_connectivity_reverse is None:
             return jsonify({"error": "No such connectivity"}), 400 #Нет такой связи
         if (status_sent == 2 or status_sent == 3) and check_connectivity is None and check_connectivity_reverse is None:
             return jsonify({"error": "No such connectivity"}), 400 #Нет такой связи
